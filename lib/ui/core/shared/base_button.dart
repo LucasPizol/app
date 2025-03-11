@@ -1,0 +1,91 @@
+import 'package:flutter/material.dart';
+
+abstract class BaseButton extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final String? text;
+  final VoidCallback? onLongPress;
+  final bool rounded;
+  final bool disabled;
+  final double? width;
+  final double? height;
+  final double? elevation;
+  final bool loading;
+  final Color backgroundColor;
+  final Color textColor;
+  final Color disabledBackgroundColor;
+  final Color disabledTextColor;
+  final bool hasBorder;
+  final Widget? rightIcon;
+  final Widget? leftIcon;
+
+  const BaseButton(
+      {super.key,
+      required this.onPressed,
+      required this.text,
+      required this.onLongPress,
+      required this.rounded,
+      required this.disabled,
+      required this.width,
+      required this.height,
+      required this.loading,
+      required this.backgroundColor,
+      required this.textColor,
+      required this.disabledBackgroundColor,
+      required this.disabledTextColor,
+      this.hasBorder = false,
+      this.rightIcon,
+      this.leftIcon,
+      this.elevation = 2});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: disabled || loading ? null : onPressed,
+      onLongPress: onLongPress,
+      style: ElevatedButton.styleFrom(
+        foregroundColor: textColor,
+        backgroundColor: backgroundColor,
+        overlayColor: const Color.fromARGB(255, 199, 199, 199),
+        shadowColor: elevation == 0 ? Colors.transparent : Colors.black,
+        surfaceTintColor: Colors.transparent,
+        disabledBackgroundColor: disabledBackgroundColor,
+        disabledForegroundColor: disabledTextColor,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        elevation: elevation,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(rounded ? 50 : 8),
+          side: hasBorder
+              ? BorderSide(
+                  color: disabled || loading ? disabledTextColor : textColor,
+                  width: 2,
+                )
+              : BorderSide.none,
+        ),
+        minimumSize: Size(width ?? double.infinity, height ?? 44),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (leftIcon != null && !loading) leftIcon!,
+          if (leftIcon != null && !loading) const SizedBox(width: 8),
+          if (loading)
+            SizedBox(
+              width: 16,
+              height: 16,
+              child:
+                  CircularProgressIndicator(strokeWidth: 3, color: disabledTextColor),
+            ),
+          if (loading) const SizedBox(width: 8),
+          Text(
+            text ?? '',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          if (rightIcon != null) const SizedBox(width: 8),
+          if (rightIcon != null) rightIcon!,
+        ],
+      ),
+    );
+  }
+}
