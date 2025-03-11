@@ -1,3 +1,4 @@
+import 'package:app/ui/core/themes/colors.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseButton extends StatelessWidget {
@@ -45,9 +46,9 @@ abstract class BaseButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         foregroundColor: textColor,
         backgroundColor: backgroundColor,
-        overlayColor: const Color.fromARGB(255, 199, 199, 199),
-        shadowColor: elevation == 0 ? Colors.transparent : Colors.black,
-        surfaceTintColor: Colors.transparent,
+        overlayColor: AppColors.overlayColor,
+        shadowColor: elevation == 0 ? AppColors.transparent : AppColors.black,
+        surfaceTintColor: AppColors.transparent,
         disabledBackgroundColor: disabledBackgroundColor,
         disabledForegroundColor: disabledTextColor,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -74,8 +75,8 @@ abstract class BaseButton extends StatelessWidget {
             SizedBox(
               width: 16,
               height: 16,
-              child:
-                  CircularProgressIndicator(strokeWidth: 3, color: disabledTextColor),
+              child: CircularProgressIndicator(
+                  strokeWidth: 3, color: disabledTextColor),
             ),
           if (loading) const SizedBox(width: 8),
           Text(

@@ -1,5 +1,5 @@
 import 'package:app/ui/core/shared/base_button.dart';
-import 'package:flutter/material.dart';
+import 'package:app/ui/core/themes/colors.dart';
 
 class PrimaryButton extends BaseButton {
   PrimaryButton({
@@ -13,10 +13,9 @@ class PrimaryButton extends BaseButton {
     super.disabled = false,
     super.rounded = false,
   }) : super(
-          backgroundColor: const Color.fromARGB(255, 113, 112, 176),
-          textColor: Colors.white,
-          disabledBackgroundColor:
-              Color.fromARGB(255, 113, 112, 176).withAlpha(160),
-          disabledTextColor: Colors.white.withAlpha(160),
+          backgroundColor: AppColors.primary400,
+          textColor: AppColors.white,
+          disabledBackgroundColor: AppColors.primary400.withAlpha(160),
+          disabledTextColor: AppColors.white.withAlpha(160),
         );
 }

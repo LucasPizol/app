@@ -1,5 +1,5 @@
 import 'package:app/ui/core/shared/base_button.dart';
-import 'package:flutter/material.dart';
+import 'package:app/ui/core/themes/colors.dart';
 
 class FlatButton extends BaseButton {
   FlatButton({
@@ -15,10 +15,9 @@ class FlatButton extends BaseButton {
     super.leftIcon,
   }) : super(
             rounded: false,
-            backgroundColor: Colors.transparent,
-            textColor: const Color.fromARGB(255, 78, 71, 71),
-            disabledBackgroundColor: Colors.transparent,
+            backgroundColor: AppColors.transparent,
+            textColor: AppColors.grey,
+            disabledBackgroundColor: AppColors.transparent,
             elevation: 0,
-            disabledTextColor:
-                const Color.fromARGB(255, 78, 71, 71).withAlpha(160));
+            disabledTextColor: AppColors.grey.withAlpha(160));
 }
