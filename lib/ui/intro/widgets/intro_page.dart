@@ -30,32 +30,40 @@ class _IntroPageState extends State<IntroPage> {
       body: Column(children: [
         Expanded(
           flex: 5,
-          child: CarouselSlider(
-            options: CarouselOptions(
-              autoPlay: true,
-              height: double.infinity,
-              viewportFraction: 1.0,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-            ),
-            items: [1, 2, 3].map((i) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image:
-                                AssetImage('assets/images/carousel_$i.png'))),
+          child: Stack(
+            children: [
+              CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  height: double.infinity,
+                  viewportFraction: 1.0,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                ),
+                items: [1, 2, 3].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image:
+                                    AssetImage('assets/images/carousel_$i.png'))),
+                      );
+                    },
                   );
-                },
-              );
-            }).toList(),
+                }).toList(),
+              ),
+            Positioned(
+              top: 14,
+              left: 14,
+              child: Image.asset('assets/images/Logo.png'))
+            ],
           ),
         ),
         Expanded(
