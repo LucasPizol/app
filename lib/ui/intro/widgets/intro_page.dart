@@ -20,7 +20,7 @@ class IntroPage extends StatefulWidget {
 class _IntroPageState extends State<IntroPage> {
   int _currentIndex = 0;
   final List<String> _titles = [
-    'Um tradutor em tempo real conectando pessoas de diversas linguas.',
+    'Um tradutor em tempo real conectando pessoas de várias linguas.',
     'Com a inclusão de linguagens de sinais para expandir sua conexão.',
     'Garanta conhecimento em diversas línguas a partir de planos de estudos.',
   ];
@@ -37,8 +37,8 @@ class _IntroPageState extends State<IntroPage> {
                 children: [
                   CarouselSlider(
                     options: CarouselOptions(
-                      autoPlay: true,
                       height: double.infinity,
+                      autoPlay: true,
                       viewportFraction: 1.0,
                       onPageChanged: (index, reason) {
                         setState(() {
@@ -74,92 +74,84 @@ class _IntroPageState extends State<IntroPage> {
                 ],
               ),
             ),
-            Expanded(
-              child: FractionalTranslation(
-                translation: Offset(0, -0.1),
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
-                  decoration: BoxDecoration(
-                    color: AppColors.primary100,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Column(
-                    children: [
-                      AnimatedSmoothIndicator(
-                        activeIndex: _currentIndex,
-                        count: 3,
-                        effect: ExpandingDotsEffect(
-                          spacing: 8.0,
-                          radius: 40,
-                          dotWidth: 8,
-                          dotHeight: 8,
-                          dotColor: AppColors.grey,
-                          activeDotColor: AppColors.primary400,
-                        ),
+            FractionalTranslation(
+              translation: Offset(0, -0.025),
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
+                decoration: BoxDecoration(
+                  color: AppColors.primary100,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  children: [
+                    AnimatedSmoothIndicator(
+                      activeIndex: _currentIndex,
+                      count: 3,
+                      effect: ExpandingDotsEffect(
+                        spacing: 8.0,
+                        radius: 40,
+                        dotWidth: 8,
+                        dotHeight: 8,
+                        dotColor: AppColors.grey,
+                        activeDotColor: AppColors.primary400,
                       ),
-                      const SizedBox(height: 16),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Consumer<IntroViewModel>(
-                            builder: (context, viewModel, child) {
-                              return Column(
-                                children: [
-                                  Text(
-                                    _titles[_currentIndex],
-                                    style: Font.primary(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Text(
-                                    'Escolha uma das opções abaixo para continuar.',
-                                    style: Font.primary(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const SizedBox(height: 32),
-                                  PrimaryButton(
-                                    rounded: true,
-                                    disabled: viewModel.isGoogleLoading,
-                                    onPressed: () {
-                                      Navigator.of(
-                                        context,
-                                      ).pushNamed('/cadastro');
-                                    },
-                                    text: 'Criar conta',
-                                  ),
-                                  const SizedBox(height: 16),
-                                  SecondaryButton(
-                                    rounded: true,
-                                    disabled: viewModel.isGoogleLoading,
-                                    onPressed: () {
-                                      Navigator.of(context).pushNamed('/login');
-                                    },
-                                    text: 'Entrar',
-                                  ),
-                                  const SizedBox(height: 32),
-                                  FlatButton(
-                                    loading: viewModel.isGoogleLoading,
-                                    onPressed: () {
-                                      viewModel.signInWithGoogle();
-                                    },
-                                    text: 'Entrar com o Google',
-                                    leftIcon: SvgPicture.asset(
-                                      'assets/images/icons/google.svg',
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 16),
+                    Consumer<IntroViewModel>(
+                      builder: (context, viewModel, child) {
+                        return Column(
+                          children: [
+                            Text(
+                              _titles[_currentIndex],
+                              style: Font.primary(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              'Escolha uma das opções abaixo para continuar.',
+                              style: Font.primary(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 32),
+                            PrimaryButton(
+                              rounded: true,
+                              disabled: viewModel.isGoogleLoading,
+                              onPressed: () {
+                                Navigator.of(context).pushNamed('/cadastro');
+                              },
+                              text: 'Criar conta',
+                            ),
+                            const SizedBox(height: 16),
+                            SecondaryButton(
+                              rounded: true,
+                              disabled: viewModel.isGoogleLoading,
+                              onPressed: () {
+                                Navigator.of(context).pushNamed('/login');
+                              },
+                              text: 'Entrar',
+                            ),
+                            const SizedBox(height: 32),
+                            FlatButton(
+                              loading: viewModel.isGoogleLoading,
+                              onPressed: () {
+                                viewModel.signInWithGoogle();
+                              },
+                              text: 'Entrar com o Google',
+                              leftIcon: SvgPicture.asset(
+                                'assets/images/icons/google.svg',
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),
