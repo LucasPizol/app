@@ -1,11 +1,11 @@
 import 'package:app/ui/core/shared/flat_button.dart';
 import 'package:app/ui/core/shared/primary_button.dart';
 import 'package:app/ui/core/shared/secondary_button.dart';
+import 'package:app/ui/core/themes/font.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:app/ui/core/themes/colors.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroPage extends StatefulWidget {
@@ -82,12 +82,12 @@ class _IntroPageState extends State<IntroPage> {
                   ),
                   const SizedBox(height: 32),
                   Text(_titles[_currentIndex],
-                      style: GoogleFonts.poppins(
+                      style: Font.primary(
                           fontSize: 15, fontWeight: FontWeight.w600),
                       textAlign: TextAlign.center),
                   const SizedBox(height: 16),
                   Text('Escolha uma das opções abaixo para continuar.',
-                      style: GoogleFonts.poppins(
+                      style: Font.primary(
                           fontSize: 13, fontWeight: FontWeight.w300),
                       textAlign: TextAlign.center),
                   const SizedBox(height: 32),

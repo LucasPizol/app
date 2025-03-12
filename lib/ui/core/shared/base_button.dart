@@ -1,4 +1,5 @@
 import 'package:app/ui/core/themes/colors.dart';
+import 'package:app/ui/core/themes/font.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseButton extends StatelessWidget {
@@ -81,7 +82,7 @@ abstract class BaseButton extends StatelessWidget {
           if (loading) const SizedBox(width: 8),
           Text(
             text ?? '',
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: Font.primary(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           if (rightIcon != null) const SizedBox(width: 8),
           if (rightIcon != null) rightIcon!,

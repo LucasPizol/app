@@ -1,6 +1,6 @@
 import 'package:app/routes/router.dart';
+import 'package:app/ui/core/themes/font.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppHandu extends StatelessWidget {
   const AppHandu({super.key});
@@ -8,9 +8,7 @@ class AppHandu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(),
-      ),
+      theme: ThemeData(textTheme: Font.primaryTheme()),
       routerConfig: router(),
     );
   }
