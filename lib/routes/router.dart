@@ -1,4 +1,4 @@
-import 'package:app/ui/confirmacao_cadastro/widgets/confirmacao_cadastro_page.dart';
+import 'package:app/data/services/google_auth.dart';
 import 'package:app/ui/intro/widgets/intro_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,7 +11,11 @@ GoRouter router() => GoRouter(
         GoRoute(
           path: Routes.intro,
           builder: (context, state) {
-            return ConfirmacaoCadastroPage();
+            var googleAuth = GoogleAuth();
+
+            return IntroPage(
+              googleAuth: googleAuth,
+            );
           },
         ),
       ],

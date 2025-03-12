@@ -1,3 +1,4 @@
+import 'package:app/data/services/google_auth.dart';
 import 'package:app/ui/core/shared/flat_button.dart';
 import 'package:app/ui/core/shared/primary_button.dart';
 import 'package:app/ui/core/shared/secondary_button.dart';
@@ -9,7 +10,12 @@ import 'package:app/ui/core/themes/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroPage extends StatefulWidget {
-  const IntroPage({super.key});
+  final GoogleAuth googleAuth;
+
+  const IntroPage({
+    super.key,
+    required this.googleAuth,
+  });
 
   @override
   State<IntroPage> createState() => _IntroPageState();
@@ -52,17 +58,17 @@ class _IntroPageState extends State<IntroPage> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image:
-                                    AssetImage('assets/images/carousel_$i.png'))),
+                                image: AssetImage(
+                                    'assets/images/carousel_$i.png'))),
                       );
                     },
                   );
                 }).toList(),
               ),
-            Positioned(
-              top: 14,
-              left: 14,
-              child: Image.asset('assets/images/Logo.png'))
+              Positioned(
+                  top: 14,
+                  left: 14,
+                  child: Image.asset('assets/images/Logo.png'))
             ],
           ),
         ),
@@ -116,7 +122,9 @@ class _IntroPageState extends State<IntroPage> {
                   ),
                   const SizedBox(height: 32),
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      widget.googleAuth.signIn();
+                    },
                     text: 'Entrar com o Google',
                     leftIcon: SvgPicture.asset('images/icons/google.svg'),
                   ),
