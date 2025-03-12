@@ -1,3 +1,4 @@
+import 'package:app/routes/routes.dart';
 import 'package:app/ui/core/shared/flat_button.dart';
 import 'package:app/ui/core/shared/primary_button.dart';
 import 'package:app/ui/core/shared/secondary_button.dart';
@@ -7,6 +8,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:app/ui/core/themes/colors.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -123,7 +125,7 @@ class _IntroPageState extends State<IntroPage> {
                               rounded: true,
                               disabled: viewModel.isGoogleLoading,
                               onPressed: () {
-                                Navigator.of(context).pushNamed('/cadastro');
+                                context.pushReplacement(Routes.confirmacaoCadastro);
                               },
                               text: 'Criar conta',
                             ),
