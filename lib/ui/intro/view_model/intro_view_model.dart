@@ -11,7 +11,7 @@ class IntroViewModel extends ChangeNotifier {
 
   int _currentIndex = 0;
   final List<String> _titles = [
-    'Um tradutor em tempo real conectando pessoas de diversas linguas.',
+    'Um tradutor em tempo real conectando pessoas de várias linguas.',
     'Com a inclusão de linguagens de sinais para expandir sua conexão.',
     'Garanta conhecimento em diversas línguas a partir de planos de estudos.',
   ];

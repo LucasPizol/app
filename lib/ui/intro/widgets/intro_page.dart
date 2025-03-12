@@ -20,12 +20,6 @@ class IntroPage extends StatefulWidget {
 }
 
 class _IntroPageState extends State<IntroPage> {
-  final List<String> _titles = [
-    'Um tradutor em tempo real conectando pessoas de várias linguas.',
-    'Com a inclusão de linguagens de sinais para expandir sua conexão.',
-    'Garanta conhecimento em diversas línguas a partir de planos de estudos.',
-  ];
-
   final List<Widget> items =
       [1, 2, 3].map((i) {
         return Builder(
@@ -113,7 +107,7 @@ class _IntroPageState extends State<IntroPage> {
                         Column(
                           children: [
                             Text(
-                              _titles[viewModel.currentIndex],
+                              viewModel.title,
                               style: Font.primary(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
