@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class IntroViewModel extends ChangeNotifier {
   final AuthRepositoryImpl _authRepository;
 
+  bool isGoogleLoading = false;
+
   IntroViewModel({required AuthRepositoryImpl authRepository})
     : _authRepository = authRepository;
 
@@ -24,9 +26,15 @@ class IntroViewModel extends ChangeNotifier {
 
   Future<void> signInWithGoogle() async {
     try {
+      isGoogleLoading = true;
+      notifyListeners();
+
       await _authRepository.signInWithGoogle();
     } catch (e) {
       print(e);
+    } finally {
+      isGoogleLoading = false;
+      notifyListeners();
     }
   }
 }

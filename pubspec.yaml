@@ -42,6 +42,7 @@ dependencies:
   logging: ^1.3.0
   smooth_page_indicator: ^1.2.1
   google_sign_in:
+  provider:
 
 dev_dependencies:
   flutter_test:
