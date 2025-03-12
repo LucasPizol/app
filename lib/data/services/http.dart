@@ -3,13 +3,23 @@ import 'dart:convert';
 import 'package:app/config/environment.dart';
 import 'package:http/http.dart' as http;
 
-class HttpService {
+abstract class HttpServiceImpl {
+  Future<T> post<T>(String path, Map<String, dynamic> body);
+  Future<T> get<T>(String path);
+  Future<void> delete(String path);
+  Future<T> put<T>(String path, Map<String, dynamic> body);
+}
+
+class HttpService extends HttpServiceImpl {
   final String _url = Environment.baseUrl;
 
-  Future<T> post<T>(String path, Map<String, String> body) async {
-    final httpRequest = await http.post(Uri.parse('$_url$path'),
-        body: jsonEncode(body),
-        headers: {'Content-Type': 'application/json; charset=utf-8'});
+  @override
+  Future<T> post<T>(String path, Map<String, dynamic> body) async {
+    final httpRequest = await http.post(
+      Uri.parse('$_url$path'),
+      body: jsonEncode(body),
+      headers: {'Content-Type': 'application/json; charset=utf-8'},
+    );
 
     if (httpRequest.statusCode != 200) {
       throw Exception('HttpService.post: ${httpRequest.statusCode}');
@@ -20,9 +30,12 @@ class HttpService {
     return jsonBody as T;
   }
 
+  @override
   Future<T> get<T>(String path) async {
-    final httpRequest = await http.get(Uri.parse('$_url$path'),
-        headers: {'Content-Type': 'application/json, charset=utf-8'});
+    final httpRequest = await http.get(
+      Uri.parse('$_url$path'),
+      headers: {'Content-Type': 'application/json, charset=utf-8'},
+    );
 
     if (httpRequest.statusCode != 200) {
       throw Exception('HttpService.get: ${httpRequest.statusCode}');
@@ -33,19 +46,25 @@ class HttpService {
     return jsonBody as T;
   }
 
+  @override
   Future<void> delete(String path) async {
-    final httpRequest = await http.delete(Uri.parse('$_url$path'),
-        headers: {'Content-Type': 'application/json, charset=utf-8'});
+    final httpRequest = await http.delete(
+      Uri.parse('$_url$path'),
+      headers: {'Content-Type': 'application/json, charset=utf-8'},
+    );
 
     if (httpRequest.statusCode != 200) {
       throw Exception('HttpService.delete: ${httpRequest.statusCode}');
     }
   }
 
-  Future<T> put<T>(String path, Map<String, String> body) async {
-    final httpRequest = await http.put(Uri.parse('$_url$path'),
-        body: jsonEncode(body),
-        headers: {'Content-Type': 'application/json, charset=utf-8'});
+  @override
+  Future<T> put<T>(String path, Map<String, dynamic> body) async {
+    final httpRequest = await http.put(
+      Uri.parse('$_url$path'),
+      body: jsonEncode(body),
+      headers: {'Content-Type': 'application/json, charset=utf-8'},
+    );
 
     if (httpRequest.statusCode != 200) {
       throw Exception('HttpService.put: ${httpRequest.statusCode}');

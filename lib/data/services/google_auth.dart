@@ -1,22 +1,17 @@
+import 'package:app/config/environment.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class GoogleAuthImpl {
-  Future<void> signIn() async {}
+  Future<GoogleSignInAccount?> signIn();
 }
 
 class GoogleAuth extends GoogleAuthImpl {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: [
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ],
+    serverClientId: Environment.googleClientId,
   );
 
-  Future<void> signIn() async {
-    try {
-      await _googleSignIn.signIn();
-    } catch (error) {
-      print(error);
-    }
+  @override
+  Future<GoogleSignInAccount?> signIn() async {
+    return await _googleSignIn.signIn();
   }
 }
