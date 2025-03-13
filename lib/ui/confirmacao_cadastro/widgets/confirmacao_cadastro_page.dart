@@ -1,5 +1,5 @@
 import 'package:app/ui/core/shared/primary_button.dart';
-import 'package:app/ui/core/themes/colors.dart';
+import 'package:app/ui/core/themes/app_colors.dart';
 import 'package:app/ui/core/themes/font.dart';
 import 'package:flutter/material.dart';
 import 'package:app/routes/routes.dart';

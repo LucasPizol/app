@@ -7,7 +7,7 @@ import 'package:app/ui/intro/view_model/intro_view_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:app/ui/core/themes/colors.dart';
+import 'package:app/ui/core/themes/app_colors.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

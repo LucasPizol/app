@@ -1,5 +1,5 @@
 import 'package:app/ui/core/shared/base_button.dart';
-import 'package:app/ui/core/themes/colors.dart';
+import 'package:app/ui/core/themes/app_colors.dart';
 
 class FlatButton extends BaseButton {
   FlatButton({

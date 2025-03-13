@@ -8,6 +8,7 @@ abstract final class AppColors {
   static Color primary500 = const Color(0xFF5E5C9E);
   static Color black = const Color(0xFF4E4747);
   static Color grey = const Color(0xFF625D5D);
+  static Color lightGrey = const Color(0xFFD5D5D5);
   static Color white = const Color(0xFFFFFFFF);
   static Color overlayColor = const Color(0xFFC7C7C7);
   static Color transparent = const Color(0x00000000);
