@@ -43,6 +43,7 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   google_sign_in:
   provider:
+  webview_flutter:
 
 dev_dependencies:
   flutter_test:

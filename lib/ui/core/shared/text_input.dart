@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:app/ui/core/themes/app_colors.dart';
 
 class TextInput extends StatelessWidget {
-  final void Function(String text) onChange;
+  final void Function(String text)? onChange;
   final FormFieldValidator<String>? validator;
   final String? label;
   final bool readOnly;
@@ -16,10 +16,12 @@ class TextInput extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool obscureText;
+  final Color? color;
+  final Color? borderColor;
 
   const TextInput({
     super.key,
-    required this.onChange,
+    this.onChange,
     this.initialValue,
     this.readOnly = false,
     this.loading,
@@ -32,6 +34,8 @@ class TextInput extends StatelessWidget {
     this.validator,
     this.controller,
     this.keyboardType,
+    this.color,
+    this.borderColor,
   });
 
   @override
@@ -44,13 +48,17 @@ class TextInput extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       readOnly: readOnly,
+      style: Font.primary(
+        fontWeight: FontWeight.w400,
+        color: textColor ?? AppColors.black,
+      ),
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         suffixIcon: sufixIcon,
         contentPadding: EdgeInsets.fromLTRB(16, 8, 16, 8),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.lightGrey, width: 1.5),
+          borderSide: BorderSide(color: borderColor ?? AppColors.lightGrey, width: 1.5),
           borderRadius: BorderRadius.circular(8),
         ),
         focusedBorder: OutlineInputBorder(
@@ -60,12 +68,13 @@ class TextInput extends StatelessWidget {
         labelText: label,
         labelStyle: Font.primary(
           fontWeight: FontWeight.w400,
-          color: AppColors.lightGrey,
+          color: color ?? AppColors.lightGrey,
         ),
         floatingLabelStyle: Font.primary(
           fontWeight: FontWeight.w500,
-          color: AppColors.primary400,
+          color: color ?? AppColors.primary400,
         ),
+        focusColor: color ?? AppColors.primary400,
       ),
     );
   }
