@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:app/config/environment.dart';
 import 'package:http/http.dart' as http;
 
