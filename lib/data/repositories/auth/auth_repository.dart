@@ -1,3 +1,6 @@
+import 'package:app/models/user.dart';
+
 abstract class AuthRepositoryImpl {
-  Future<void> signInWithGoogle();
+  Future<User> signInWithGoogle();
+  Future<void> signOut();
 }

@@ -20,11 +20,11 @@ class HttpService extends HttpServiceImpl {
       headers: {'Content-Type': 'application/json; charset=utf-8'},
     );
 
-    if (httpRequest.statusCode != 200) {
-      throw Exception('HttpService.post: ${httpRequest.statusCode}');
-    }
-
     var jsonBody = json.decode(utf8.decode(httpRequest.bodyBytes));
+
+    if (httpRequest.statusCode >= 400) {
+      throw Exception(jsonBody);
+    }
 
     return jsonBody as T;
   }
@@ -36,11 +36,11 @@ class HttpService extends HttpServiceImpl {
       headers: {'Content-Type': 'application/json, charset=utf-8'},
     );
 
-    if (httpRequest.statusCode != 200) {
-      throw Exception('HttpService.get: ${httpRequest.statusCode}');
-    }
-
     var jsonBody = json.decode(utf8.decode(httpRequest.bodyBytes));
+
+    if (httpRequest.statusCode >= 400) {
+      throw Exception(jsonBody);
+    }
 
     return jsonBody as T;
   }
@@ -52,8 +52,10 @@ class HttpService extends HttpServiceImpl {
       headers: {'Content-Type': 'application/json, charset=utf-8'},
     );
 
-    if (httpRequest.statusCode != 200) {
-      throw Exception('HttpService.delete: ${httpRequest.statusCode}');
+    if (httpRequest.statusCode >= 200) {
+      var jsonBody = json.decode(utf8.decode(httpRequest.bodyBytes));
+
+      throw Exception(jsonBody);
     }
   }
 
@@ -65,11 +67,11 @@ class HttpService extends HttpServiceImpl {
       headers: {'Content-Type': 'application/json, charset=utf-8'},
     );
 
-    if (httpRequest.statusCode != 200) {
-      throw Exception('HttpService.put: ${httpRequest.statusCode}');
-    }
-
     var jsonBody = json.decode(utf8.decode(httpRequest.bodyBytes));
+
+    if (httpRequest.statusCode >= 400) {
+      throw Exception(jsonBody);
+    }
 
     return jsonBody as T;
   }

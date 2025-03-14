@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class GoogleAuthImpl {
   Future<GoogleSignInAccount?> signIn();
+  Future<void> signOut();
 }
 
 class GoogleAuth extends GoogleAuthImpl {
@@ -13,5 +14,10 @@ class GoogleAuth extends GoogleAuthImpl {
   @override
   Future<GoogleSignInAccount?> signIn() async {
     return await _googleSignIn.signIn();
+  }
+
+  @override
+  Future<void> signOut() async {
+    await _googleSignIn.signOut();
   }
 }

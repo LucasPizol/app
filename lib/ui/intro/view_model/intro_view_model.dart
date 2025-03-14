@@ -1,14 +1,6 @@
-import 'package:app/data/repositories/auth/auth_repository.dart';
 import 'package:flutter/material.dart';
 
 class IntroViewModel extends ChangeNotifier {
-  final AuthRepositoryImpl _authRepository;
-
-  bool isGoogleLoading = false;
-
-  IntroViewModel({required AuthRepositoryImpl authRepository})
-    : _authRepository = authRepository;
-
   int _currentIndex = 0;
   final List<String> _titles = [
     'Um tradutor em tempo real conectando pessoas de várias linguas.',
@@ -22,20 +14,5 @@ class IntroViewModel extends ChangeNotifier {
   void onPageChanged(int index) {
     _currentIndex = index;
     notifyListeners();
-  }
-
-  Future<void> signInWithGoogle() async {
-    try {
-      isGoogleLoading = true;
-      notifyListeners();
-
-      await _authRepository.signInWithGoogle();
-      isGoogleLoading = false;
-      notifyListeners();
-    } catch (e) {
-      isGoogleLoading = false;
-      notifyListeners();
-      rethrow;
-    }
   }
 }

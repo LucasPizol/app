@@ -1,8 +1,7 @@
-import 'package:app/data/repositories/auth/auth_repository_remote.dart';
-import 'package:app/data/services/google_auth.dart';
-import 'package:app/data/services/http.dart';
+import 'package:app/providers/auth_provider.dart';
 import 'package:app/routes/destination.dart';
 import 'package:app/ui/confirmacao_cadastro/widgets/confirmacao_cadastro_page.dart';
+import 'package:app/ui/core/shared/primary_button.dart';
 import 'package:app/ui/core/themes/app_colors.dart';
 import 'package:app/ui/core/themes/font.dart';
 import 'package:app/ui/intro/view_model/intro_view_model.dart';
@@ -15,21 +14,29 @@ import 'package:provider/provider.dart';
 
 import 'routes.dart';
 
-GoRouter router() => GoRouter(
+GoRouter router(AuthProvider authProvider) => GoRouter(
   initialLocation: Routes.intro,
   debugLogDiagnostics: true,
+  refreshListenable: authProvider,
+  redirect: (context, state) {
+    final isLoggingIn = state.matchedLocation == Routes.intro;
+
+    if (authProvider.isAuthenticated && isLoggingIn) {
+      return Routes.home;
+    }
+
+    if (authProvider.isLoading && !isLoggingIn) {
+      return Routes.intro;
+    }
+
+    return null;
+  },
   routes: [
     GoRoute(
       path: Routes.intro,
       builder: (context, state) {
         return ChangeNotifierProvider(
-          create:
-              (context) => IntroViewModel(
-                authRepository: AuthRepositoryRemote(
-                  googleAuth: GoogleAuth(),
-                  httpService: HttpService(),
-                ),
-              ),
+          create: (context) => IntroViewModel(),
           child: IntroPage(),
         );
       },
@@ -131,7 +138,11 @@ GoRouter router() => GoRouter(
           routes: [
             GoRoute(
               path: Routes.conta,
-              builder: (context, state) => Text('Conta'),
+              builder:
+                  (context, state) => PrimaryButton(
+                    text: 'Sair',
+                    onPressed: authProvider.signOut,
+                  ),
             ),
           ],
         ),
