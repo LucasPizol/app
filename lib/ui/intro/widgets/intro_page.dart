@@ -45,6 +45,16 @@ class _IntroPageState extends State<IntroPage> {
       body: SafeArea(
         child: Consumer<IntroViewModel>(
           builder: (context, viewModel, child) {
+            void onLoginWithGoogle() async {
+              try {
+                await viewModel.signInWithGoogle();
+
+                if (context.mounted) {
+                  context.pushReplacement(Routes.home);
+                }
+              } catch (e) {}
+            }
+
             return Column(
               children: [
                 Expanded(
@@ -128,7 +138,9 @@ class _IntroPageState extends State<IntroPage> {
                               rounded: true,
                               disabled: viewModel.isGoogleLoading,
                               onPressed: () {
-                                context.pushReplacement(Routes.confirmacaoCadastro);
+                                context.pushReplacement(
+                                  Routes.confirmacaoCadastro,
+                                );
                               },
                               text: 'Criar conta',
                             ),
@@ -144,9 +156,7 @@ class _IntroPageState extends State<IntroPage> {
                             const SizedBox(height: 32),
                             FlatButton(
                               loading: viewModel.isGoogleLoading,
-                              onPressed: () {
-                                viewModel.signInWithGoogle();
-                              },
+                              onPressed: onLoginWithGoogle,
                               text: 'Entrar com o Google',
                               leftIcon: SvgPicture.asset(
                                 'assets/images/icons/google.svg',

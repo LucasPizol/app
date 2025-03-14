@@ -30,11 +30,12 @@ class IntroViewModel extends ChangeNotifier {
       notifyListeners();
 
       await _authRepository.signInWithGoogle();
-    } catch (e) {
-      print(e);
-    } finally {
       isGoogleLoading = false;
       notifyListeners();
+    } catch (e) {
+      isGoogleLoading = false;
+      notifyListeners();
+      rethrow;
     }
   }
 }

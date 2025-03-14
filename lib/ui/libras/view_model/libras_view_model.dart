@@ -13,17 +13,19 @@ class LibrasViewModel extends ChangeNotifier {
 
   void setWebViewConfig() async {
     try {
-    webViewController
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setUserAgent(
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      webViewController
+        ..setJavaScriptMode(JavaScriptMode.unrestricted)
+        ..setUserAgent(
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        );
+
+      await webViewController.loadHtmlString(_generateHtml());
+
+      await Future.delayed(Duration(seconds: 1));
+
+      await webViewController.runJavaScript(
+        "const btn = document.querySelector('.active');btn.click()",
       );
-
-    await webViewController.loadHtmlString(_generateHtml());
-
-    await webViewController.runJavaScript(
-      "document.querySelector('.active').click();",
-    );
     } finally {}
   }
 
@@ -42,19 +44,6 @@ class LibrasViewModel extends ChangeNotifier {
             box-sizing: border-box;
           }
 
-          body {
-            width: 100vw !important;
-            height: 100vh !important;
-          }
-
-         .vpw-box {
-            display: none !important;
-          }
-
-          .vpw-control {
-            display: none !important;
-          }
-
           .vw-plugin-wrapper {
             left: 0 !important;
             top: 0 !important;
@@ -63,11 +52,19 @@ class LibrasViewModel extends ChangeNotifier {
             border-radius: 0 !important;
           }
 
+          .vpw-translator-button, .vpw-help-button, .vpw-controls, .vpw-box {
+            display: none !important;
+          }
+
           .vw-container {
             width: 100% !important;
-            height: 100% !important;
+            height: calc(100% + 80px) !important;
             min-width: 100% !important;
             transform: translate(10px, calc(-50% - 10px)) !important;
+          }
+
+          div[vp-rate-box] {
+            display: none !important;
           }
         </style>
     </head>
@@ -89,16 +86,13 @@ class LibrasViewModel extends ChangeNotifier {
             document.body.appendChild(element);
 
             element.click();
-
             element.remove();
           }
 
-          window.onerror = function() {
-            return true;
-          };
+          window.onerror = () => true
+          window.alert = () => {}
         </script>
       </body>
-    </html>
-    ''';
+    </html>''';
   }
 }
