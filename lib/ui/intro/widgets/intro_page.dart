@@ -142,7 +142,7 @@ class _IntroPageState extends State<IntroPage> {
                                   disabled: authProvider.isGoogleLoading,
                                   onPressed: () {
                                     context.pushReplacement(
-                                      Routes.confirmacaoCadastro,
+                                      Routes.cadastro,
                                     );
                                   },
                                   text: 'Criar conta',

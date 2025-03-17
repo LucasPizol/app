@@ -1,5 +1,6 @@
 import 'package:app/providers/auth_provider.dart';
 import 'package:app/routes/destination.dart';
+import 'package:app/ui/cadastro/widgets/cadastro_page.dart';
 import 'package:app/ui/confirmacao_cadastro/widgets/confirmacao_cadastro_page.dart';
 import 'package:app/ui/core/shared/primary_button.dart';
 import 'package:app/ui/core/themes/app_colors.dart';
@@ -40,6 +41,12 @@ GoRouter router(AuthProvider authProvider) => GoRouter(
           child: IntroPage(),
         );
       },
+    ),
+    GoRoute(
+      path: Routes.cadastro,
+      builder: (context, state) {
+        return CadastroPage();
+      }
     ),
     GoRoute(
       path: Routes.confirmacaoCadastro,
