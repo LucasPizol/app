@@ -26,84 +26,19 @@ class _CadastroPageState extends State<CadastroPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
               Image.asset('assets/images/Logo_1.png', width: 153, height: 147),
-              // Trocar imagem por uma maior
               const SizedBox(height: 10),
               Text(
                 'Cadastro',
                 style: Font.primary(
                   color: AppColors.grey,
-                  fontSize: 24,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 40),
-
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.00),
-                    child: TextInput(label: 'Nome Completo'),
-                  ),
-                  const SizedBox(height: 30),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.00),
-                    child: TextInput(label: 'Email'),
-                  ),
-                  const SizedBox(height: 30),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.00),
-                    child: TextInput(label: 'Senha', obscureText: true),
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 40.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Mínimo 8 dígitos',
-                        style: Font.primary(
-                          fontSize: 12,
-                          color: AppColors.primary100,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 40.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Utilizar letras e números',
-                        style: Font.primary(
-                          fontSize: 12,
-                          color: AppColors.primary100,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.00),
-                child: TextInput(label: 'Confirmar Senha', obscureText: true),
-              ),
-              const SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.00),
-                child: PrimaryButton(
-                  rounded: true,
-                  onPressed: () {
-                    context.pushReplacement(Routes.confirmacaoCadastro);
-                  },
-                  text: 'Cadastrar conta',
-                ),
-              ),
+              const FormsValidator(),
               const SizedBox(height: 20),
               Text('Ou continue com', style: Font.primary(fontSize: 12)),
               const SizedBox(height: 32),
@@ -141,6 +76,158 @@ class _CadastroPageState extends State<CadastroPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class FormsValidator extends StatefulWidget {
+  const FormsValidator ({super.key});
+
+  @override
+  FormsValidatorState createState() {
+    return FormsValidatorState();
+  }
+}
+
+class FormsValidatorState extends State<FormsValidator> {
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _password2Controller = TextEditingController();
+
+  void _validatedAndSubmit() {
+    if (_formKey.currentState!.validate()) {
+      context.pushReplacement(Routes.confirmacaoCadastro);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: TextInput(
+              controller: _nameController,
+              label: 'Nome Completo',
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Digite um Nome';
+                }
+                return null;
+              },
+            ),
+          ),
+          const SizedBox(height: 30),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: TextInput(
+              controller: _emailController,
+              label: 'Email',
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Digite um e-mail';
+                }
+                if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') // Validar .dominio corretamente
+                    .hasMatch(value)) {
+                  return 'Digite um e-mail válido';
+                }
+                return null;
+              },
+            ),
+          ),
+          const SizedBox(height: 30),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: TextInput(
+              controller: _passwordController,
+              label: 'Senha',
+              obscureText: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Digite uma senha';
+                }
+                if (value.length < 8) {
+                  return 'A senha deve ter pelo menos 8 caracteres';
+                }
+                if (!RegExp(r'^(?=.*[a-zA-Z])(?=.*\d)').hasMatch(value)) {
+                  return 'A senha deve conter letras e números';
+                }
+                return null;
+              },
+            ),
+          ),
+          const SizedBox(height: 10),
+
+          Padding(
+            padding: const EdgeInsets.only(left: 40.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Mínimo 8 dígitos',
+                style: Font.primary(
+                  fontSize: 12,
+                  color: AppColors.primary100,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 5),
+
+          Padding(
+            padding: const EdgeInsets.only(left: 40.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Utilizar letras e números',
+                style: Font.primary(
+                  fontSize: 12,
+                  color: AppColors.primary100,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: TextInput(
+              controller: _password2Controller,
+              label: 'Confirmar Senha',
+              obscureText: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Confirme sua senha';
+                }
+                if (value != _passwordController.text) {
+                  return 'As senhas não são iguais';
+                }
+                return null;
+              },
+            ),
+          ),
+          const SizedBox(height: 40),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: PrimaryButton(
+              text: ('Cadastrar conta'),
+              rounded: true,
+              onPressed: _validatedAndSubmit,
+            )
+          ),
+        ],
       ),
     );
   }
