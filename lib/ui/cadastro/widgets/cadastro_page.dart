@@ -3,7 +3,8 @@ import 'package:app/ui/core/themes/font.dart';
 import 'package:flutter/material.dart';
 import 'package:app/ui/core/shared/text_input.dart';
 import 'package:app/ui/core/shared/primary_button.dart';
-//import 'package:app/providers/auth_provider.dart';
+import 'package:app/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:app/routes/routes.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -22,59 +23,73 @@ class _CadastroPageState extends State<CadastroPage> {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              Image.asset('assets/images/Logo_1.png', width: 153, height: 147),
-              const SizedBox(height: 10),
-              Text(
-                'Cadastro',
-                style: Font.primary(
-                  color: AppColors.grey,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 40),
-              const FormsValidator(),
-              const SizedBox(height: 20),
-              Text('Ou continue com', style: Font.primary(fontSize: 12)),
-              const SizedBox(height: 32),
-              FlatButton(
-                //loading: authProvider.isGoogleLoading,
-                //onPressed: onLoginWithGoogle,
-                leftIcon: SvgPicture.asset(
-                  'assets/images/icons/google.svg',
-                  height: 30,
-                  width: 30,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+        child: Consumer<AuthProvider>(
+          builder: (context, authProvider, child) {
+            void onLoginWithGoogle() async {
+              try{
+                await authProvider.signInWithGoogle();
+
+                if (context.mounted){
+                  context.pushReplacement(Routes.home);
+                }
+              } catch (e) {}
+            }
+
+            return SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text('Já tem uma conta?', style: Font.primary(fontSize: 12)),
-                  TextButton(
-                    onPressed: () {
-                      context.pushReplacement(
-                        Routes
-                            .confirmacaoCadastro, //Trocar para login quando tiver
-                      );
-                    },
-                    child: Text(
-                      'Entrar',
-                      style: Font.primary(
-                        fontSize: 12,
-                        color: AppColors.primary300,
-                      ),
+                  const SizedBox(height: 20),
+                  Image.asset('assets/images/Logo_1.png', width: 153, height: 147),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Cadastro',
+                    style: Font.primary(
+                      color: AppColors.grey,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  const SizedBox(height: 40),
+                  const FormsValidator(),
+                  const SizedBox(height: 20),
+                  Text('Ou continue com', style: Font.primary(fontSize: 12)),
+                  const SizedBox(height: 32),
+                  FlatButton(
+                    loading: authProvider.isGoogleLoading,
+                    onPressed: onLoginWithGoogle,
+                    leftIcon: SvgPicture.asset(
+                      'assets/images/icons/google.svg',
+                      height: 30,
+                      width: 30,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Já tem uma conta?', style: Font.primary(fontSize: 12)),
+                      TextButton(
+                        onPressed: () {
+                          context.pushReplacement(
+                            Routes
+                                .confirmacaoCadastro, //Trocar para login quando tiver
+                          );
+                        },
+                        child: Text(
+                          'Entrar',
+                          style: Font.primary(
+                            fontSize: 12,
+                            color: AppColors.primary300,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
+            );
+          }
         ),
       ),
     );
