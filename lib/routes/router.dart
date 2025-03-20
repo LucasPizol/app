@@ -62,12 +62,6 @@ GoRouter router(AuthProvider authProvider) => GoRouter(
         return ConfirmacaoCadastroPage();
       },
     ),
-    GoRoute(
-      path: Routes.home,
-      builder: (context, state) {
-        return TranslateTextPage();
-      },
-      ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         const destinations = [
@@ -131,7 +125,7 @@ GoRouter router(AuthProvider authProvider) => GoRouter(
           routes: [
             GoRoute(
               path: Routes.home,
-              builder: (context, state) => Text('Tradução'),
+              builder: (context, state) => TranslateTextPage(),
             ),
           ],
         ),
